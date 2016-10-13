@@ -29,15 +29,15 @@ int main()
 
 bitset<8> ARS(bitset<8> in)
 {
-	if (in[7] == 0)
-	{
-		in = in >> 1;
-		in[7] = 0;
-	}
-	else if (in[7] == 1)
+	
+	 if (in[7] == 1)
 	{
 		in = in >> 1;
 		in[7] = 1;
+	}
+	else
+	{
+		in = in >> 1;
 	}
 	return in;
 }
