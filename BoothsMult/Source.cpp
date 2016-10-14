@@ -4,10 +4,11 @@
 using namespace std;
 bitset<8> ARS(bitset<8> in);
 bitset<16> BoothsMult(int in1, int in2);
+bitset<8> PrimeProduct(bitset<16> product);
 
 int main()
 {
-	//variables hold inputs 
+	//variable inputs 
 	int in1 = 0;
 	int in2 = 0;
 
@@ -35,15 +36,35 @@ bitset<16> ARS(bitset<16> in)
 	return in;
 }
 
+bitset<8> PrimeProduct(bitset<16> product)
+{
+	bitset<8> pp;
+	int j = 0;
+	for (int i = 8; i < 16; i++)
+	{
+		pp[j] = product[i];
+		j++;
+	}
+	cout << pp << endl;
+	return pp;
+}
+
 bitset<16> BoothsMult(int in1, int in2)
 {
 	bitset<8> mCand{ _ULonglong(in1) }; //bitset representation of in1 in 8 bit format **Multicant**
 	bitset<16> product{ _ULonglong(in2) }; //bitset represenation of in2 in 16 bit format **Product**
 	
+	//Printing out header
+	cout << "   steps   |    MCand    |            Product" << endl;
+	cout << "-------------------------------------------------------------" << endl;
+	cout << "     0     |   " << mCand << "  |" << product << endl;
+	cout << "           |             |                                   " << endl;
+	cout << "-------------------------------------------------------------" << endl;
+	PrimeProduct(product);
 	//step 2 
 	//add zero to the end of the product
 	bitset<17> p{ product.to_ulong() }; //convert product back to int to convert bitset<16> to bitset<17>
-	p = p << 1; //ls p to add 0
+	p = p << 1; //left shift p to add 0
 	
 	return product;
 }
