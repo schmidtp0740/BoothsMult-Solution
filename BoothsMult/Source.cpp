@@ -32,6 +32,8 @@ int main()
 			if (out[0] == 0)
 			{
 				out[0] = 1;
+				cout << "Product: -" << out.to_ulong() << endl; //need to return out as int that can be a negative
+				break;
 			}
 			else if (out[0] == 1)
 			{
@@ -57,8 +59,18 @@ int main()
 	}
 	else
 	{
-		cout << "Product:" << out.to_ulong() << endl; //need to return out as int that can be a negative
+		if (in1 < 0 && in2 < 0)
+		{
+			out[0] = 1;
+			cout << "Product: " << out.to_ulong() << endl; //need to return out as int that can be a negative
 
+		}
+		else
+		{
+			cout << "Product: " << out.to_ulong() << endl; //need to return out as int that can be a negative
+
+		}
+		
 	}
 }
 
