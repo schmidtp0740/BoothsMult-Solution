@@ -17,8 +17,13 @@ int main()
 	cout << "Enter second value[1]: ";
 	cin >> in2;
 
-	int out = BoothsMult(in1, in2).to_ulong();
-	cout << "Product:" << out << endl;
+	bitset<8> out;
+	bitset<16> p = BoothsMult(in1, in2);
+	for (int i = 0; i < 8; i++)
+	{
+		out[i] = p[i];
+	}
+	cout << "Product:" << out.to_ulong() << endl; //need to return out as int that can be a negative
 }
 
 //Arithmetic Shift Right function
@@ -67,7 +72,7 @@ bitset<16> BoothsMult(int in1, int in2)
 	bitset<17> p{ product.to_ulong() }; //convert product back to int to convert bitset<16> to bitset<17>
 	p = p << 1; //left shift p to add 0
 	
-	//
+	//repeat steps 3 and 4 n-bits long(8-bits)
 	for (int i = 1; i <= 8; i++)
 	{
 		//step 3
@@ -78,7 +83,7 @@ bitset<16> BoothsMult(int in1, int in2)
 		if (p[1] == 0 && p[0] == 1)
 		{
 			//primeproduct + mCand
-			bitset<8> prime = (PrimeProduct(p) & mCand);
+			bitset<8> prime { _ULonglong( (PrimeProduct(p)).to_ulong() + (mCand).to_ulong() )};
 			for (int j = 9; j < 17; j++)
 			{
 				p[j] = prime[j - 9];
@@ -91,7 +96,7 @@ bitset<16> BoothsMult(int in1, int in2)
 		else if (p[1] == 1 && p[0] == 0)
 		{
 			//primeproduct + mCand
-			bitset<8> prime = (PrimeProduct(p) | mCand);
+			bitset<8> prime{ _ULonglong((PrimeProduct(p)).to_ulong() - mCand.to_ulong() ) };
 			for (int j = 9; j < 17; j++)
 			{
 				p[j] = prime[j - 9];
@@ -112,6 +117,9 @@ bitset<16> BoothsMult(int in1, int in2)
 		cout << "-------------------------------------------------------------" << endl;
 
 	}
-
+	for (int i = 15; i >= 0; i--)
+	{
+		product[i] = p[i + 1];
+	}
 	return product;
 }
