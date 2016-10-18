@@ -23,7 +23,43 @@ int main()
 	{
 		out[i] = p[i];
 	}
-	cout << "Product:" << out.to_ulong() << endl; //need to return out as int that can be a negative
+
+	if (out[7] == 1)
+	{
+		for (int i = 0; i< 8; i++)
+		{
+			out.flip();
+			if (out[0] == 0)
+			{
+				out[0] = 1;
+			}
+			else if (out[0] == 1)
+			{
+				out[0] = 0;
+				for (int j = 1; j < 7; j++)
+				{
+					if (out[j] == 1)
+					{
+						out[j] = 0;
+						continue;
+					}
+					else
+					{
+						out[j] = 1;
+						break;
+					}
+				}
+				cout << "Product: -" << out.to_ulong() << endl; //need to return out as int that can be a negative
+				break;
+			}
+		}
+
+	}
+	else
+	{
+		cout << "Product:" << out.to_ulong() << endl; //need to return out as int that can be a negative
+
+	}
 }
 
 //Arithmetic Shift Right function
