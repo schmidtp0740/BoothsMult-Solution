@@ -5,6 +5,7 @@ using namespace std;
 bitset<8> ASR(bitset<8> in);
 bitset<16> BoothsMult(int in1, int in2);
 bitset<8> PrimeProduct(bitset<16> product);
+bitset<8> Invert(bitset<8> out);
 
 int main()
 {
@@ -19,49 +20,27 @@ int main()
 
 	bitset<8> out;
 	bitset<16> p = BoothsMult(in1, in2);
+
+	//convert 16 bit bitset 'p' to 8 bit bitset 'out'
 	for (int i = 0; i < 8; i++)
 	{
 		out[i] = p[i];
 	}
 
+	//flip output if it is negative
 	if (out[7] == 1)
 	{
-		for (int i = 0; i< 8; i++)
-		{
-			out.flip();
-			if (out[0] == 0)
-			{
-				out[0] = 1;
-				cout << "Product: -" << out.to_ulong() << endl; //need to return out as int that can be a negative
-				break;
-			}
-			else if (out[0] == 1)
-			{
-				out[0] = 0;
-				for (int j = 1; j < 7; j++)
-				{
-					if (out[j] == 1)
-					{
-						out[j] = 0;
-						continue;
-					}
-					else
-					{
-						out[j] = 1;
-						break;
-					}
-				}
-				cout << "Product: -" << out.to_ulong() << endl; //need to return out as int that can be a negative
-				break;
-			}
-		}
+			
+		cout << "Product: -" << Invert(out).to_ulong() << endl;
 
 	}
+
+	//if output is positive
 	else
 	{
 		if (in1 < 0 && in2 < 0)
 		{
-			out[0] = 1;
+			
 			cout << "Product: " << out.to_ulong() << endl; //need to return out as int that can be a negative
 
 		}
@@ -73,6 +52,38 @@ int main()
 		
 	}
 }
+
+bitset<8> Invert(bitset<8> out)
+{
+	out.flip();
+
+	if (out[0] == 0)
+	{
+		out[0] = 1;
+		return out;
+
+	}
+	else if (out[0] == 1)
+	{
+		out[0] = 0;
+		for (int j = 1; j < 7; j++)
+		{
+			if (out[j] == 1)
+			{
+				out[j] = 0;
+				continue;
+			}
+			else
+			{
+				out[j] = 1;
+				break;
+			}
+		}
+		return out;
+
+	}
+}
+
 
 //Arithmetic Shift Right function
 bitset<17> ASR(bitset<17> in)
