@@ -38,18 +38,7 @@ int main()
 	//if output is positive
 	else
 	{
-		if (in1 < 0 && in2 < 0)
-		{
-			
-			cout << "Product: " << out.to_ulong() << endl; //need to return out as int that can be a negative
-
-		}
-		else
-		{
-			cout << "Product: " << out.to_ulong() << endl; //need to return out as int that can be a negative
-
-		}
-		
+			cout << "Product: " << out.to_ulong() << endl;	
 	}
 }
 
@@ -104,11 +93,11 @@ bitset<17> ASR(bitset<17> in)
 bitset<8> PrimeProduct(bitset<17> product)
 {
 	bitset<8> pp; //initialize prime product
-	int j = 0; //initialize counter for primeproduct[0] - primeproduct [7]
+
 	for (int i = 9; i < 17; i++) //starting with the product[8] count up to product[15]
 	{
-		pp[j] = product[i]; //assign primeproduct the last 8 bits of product
-		j++;
+		pp[i-9] = product[i]; //assign primeproduct the last 8 bits of product
+		
 	}
 	return pp; //return prime product
 }
@@ -116,7 +105,12 @@ bitset<8> PrimeProduct(bitset<17> product)
 bitset<16> BoothsMult(int in1, int in2)
 {
 	bitset<8> mCand{ _ULonglong(in1) }; //bitset representation of in1 in 8 bit format **Multicant**
-	bitset<16> product{ _ULonglong(in2) }; //bitset represenation of in2 in 16 bit format **Product**
+	bitset<8> t{ _ULonglong(in2) };
+	bitset<16> product; //bitset represenation of in2 in 16 bit format **Product**
+	for (int i = 0; i < 8; i++)
+	{
+		product[i] = t[i];
+	}
 	
 	//Step 1. Place the multipler at the lower
 	// half of the product
